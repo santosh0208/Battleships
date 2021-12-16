@@ -99,7 +99,6 @@ def checkShip(grid, ship):
             if grid [i[0]][i[1]] !=1:
                 return False 
     return True 
-
     return
 
 
