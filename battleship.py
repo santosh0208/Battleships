@@ -68,7 +68,6 @@ def emptyGrid(rows, cols):
         for j in range(cols):
             x.append(EMPTY_UNCLICKED)
         mat.append(x)
-
     return mat
      
 
