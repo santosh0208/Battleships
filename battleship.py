@@ -86,6 +86,7 @@ def createShip():
         ship=[[r-1,c],[r,c],[r+1,c]]
     else:
         ship=[[r,c-1],[r,c],[r,c+1]]
+    
     return ship 
 '''
 checkShip(grid, ship)
