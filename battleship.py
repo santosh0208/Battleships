@@ -23,7 +23,6 @@ SHIP_CLICKED = 4
 makeModel(data)
 Parameters: dict mapping strs to values
 Returns: None
-Santosh 
 '''
 def makeModel(data):
     return
@@ -63,7 +62,16 @@ Parameters: int ; int
 Returns: 2D list of ints
 '''
 def emptyGrid(rows, cols):
-    return
+    mat=[]
+    for i in range(rows):
+        x =[]
+        for j in range(cols):
+            x.append(EMPTY_UNCLICKED)
+        mat.append(x)
+
+    return mat
+     
+
 
 
 '''
@@ -72,15 +80,26 @@ Parameters: no parameters
 Returns: 2D list of ints
 '''
 def createShip():
-    return
-
-
+    r= random.randint(1,8)
+    c= random.randint(1,8)
+    z= random.randint(0,1)
+    if z==0:
+        ship=[[r-1,c],[r,c],[r+1,c]]
+    else:
+        ship=[[r,c-1],[r,c],[r,c+1]]
+    return ship 
 '''
 checkShip(grid, ship)
 Parameters: 2D list of ints ; 2D list of ints
 Returns: bool
 '''
 def checkShip(grid, ship):
+    for i in ship:
+        for j in i:
+            if grid [i[0]][i[1]] !=1:
+                return False 
+    return True 
+
     return
 
 
@@ -90,6 +109,16 @@ Parameters: 2D list of ints ; int
 Returns: 2D list of ints
 '''
 def addShips(grid, numShips):
+    s=0 
+    while s < numShips:
+        create02= createShip()
+        check02= checkShip(grid,create02)
+        if check02== True:
+            for a in create02:
+                grid[a[0]][a[1]]=2
+            s+=1
+    return grid 
+
     return
 
 
@@ -269,6 +298,6 @@ def runSimulation(w, h):
 
 # This code runs the test cases to check your work
 if __name__ == "__main__":
-
+    test.testAddShips()
     ## Finally, run the simulation to test it manually ##
     # runSimulation(500, 500)
