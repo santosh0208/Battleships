@@ -25,18 +25,8 @@ Parameters: dict mapping strs to values
 Returns: None
 '''
 def makeModel(data):
-    data["rows"]=12
-    data["colms"]=12
-    data["boardsize"]=500
-    data["cellsize"]=50
-    data["userboard"]=emptyGrid(data["rows"],data["colms"])
-    data["computerboard"]=emptyGrid(data["rows"],data["colms"])
-    addShips(data["compueterboard"],5)
-    data["nuberofships"]=5
-    data["userboard"]=createShip()
-    data["computerboard"]=createShip()
-    return data 
-    
+    return
+
 
 '''
 makeView(data, userCanvas, compCanvas)
@@ -96,7 +86,6 @@ def createShip():
         ship=[[r-1,c],[r,c],[r+1,c]]
     else:
         ship=[[r,c-1],[r,c],[r,c+1]]
-    
     return ship 
 '''
 checkShip(grid, ship)
@@ -109,7 +98,7 @@ def checkShip(grid, ship):
             if grid [i[0]][i[1]] !=1:
                 return False 
     return True 
-   
+
     return
 
 
@@ -128,6 +117,7 @@ def addShips(grid, numShips):
                 grid[a[0]][a[1]]=2
             s+=1
     return grid 
+
     return
 
 
