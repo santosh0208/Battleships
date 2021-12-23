@@ -74,6 +74,8 @@ def mousePressed(data, event, board):
      row,col=getClickedCell(data, event)
      if board=="user":
         clickUserBoard(data, row, col)
+     if board=="cp":
+         runGameTurn(data,row,col)
 
      pass
 
@@ -152,15 +154,17 @@ Returns: None
 def drawGrid(data, canvas, grid, showShips):
   for r in range(data["rows"]):
         for c in range(data["cols"]):
-            print (r)
-            print(c*data["cellsize"],r*data["cellsize"],data["cellsize"]+c*data["cellsize"],r*data["cellsize"]+data["cellsize"])
             if grid[r][c]==SHIP_UNCLICKED:
-                #if showShips==True:
-                canvas.create_rectangle(c*data["cellsize"],r*data["cellsize"],data["cellsize"]+c*data["cellsize"],r*data["cellsize"]+data["cellsize"],fill="yellow")
+                if showShips==True:
+                  canvas.create_rectangle(c*data["cellsize"],r*data["cellsize"],data["cellsize"]+c*data["cellsize"],r*data["cellsize"]+data["cellsize"],fill="yellow")
+                else:
+                    canvas.create_rectangle(c*data["cellsize"],r*data["cellsize"],data["cellsize"]+c*data["cellsize"],r*data["cellsize"]+data["cellsize"],fill="blue")
+            elif grid[r][c]==SHIP_CLICKED:
+                canvas.create_rectangle(c*data["cellsize"],r*data["cellsize"],data["cellsize"]+c*data["cellsize"],r*data["cellsize"]+data["cellsize"],fill="red")
+            elif grid[r][c]==EMPTY_CLICKED:
+                canvas.create_rectangle(c*data["cellsize"],r*data["cellsize"],data["cellsize"]+c*data["cellsize"],r*data["cellsize"]+data["cellsize"],fill="white")
             else:
                 canvas.create_rectangle(c*data["cellsize"],r*data["cellsize"],data["cellsize"]+c*data["cellsize"],r*data["cellsize"]+data["cellsize"],fill="blue")
-        else:
-            canvas.create_rectangle(c*data["cellsize"],r*data["cellsize"],data["cellsize"]+c*data["cellsize"],r*data["cellsize"]+data["cellsize"],fill="blue")
   return 
         
 
@@ -277,7 +281,11 @@ Parameters: dict mapping strs to values ; 2D list of ints ; int ; int ; str
 Returns: None
 '''
 def updateBoard(data, board, row, col, player):
-
+    if board[row][col]==SHIP_UNCLICKED:
+        board [row][col]=SHIP_CLICKED
+    else:
+        board[row][col]==EMPTY_UNCLICKED
+        board[row][col]=EMPTY_CLICKED    
     return
 
 
@@ -287,6 +295,11 @@ Parameters: dict mapping strs to values ; int ; int
 Returns: None
 '''
 def runGameTurn(data, row, col):
+    q=data["cp"]
+    if q[row][col]==SHIP_CLICKED or q[row][col]==EMPTY_CLICKED:
+        return
+    else:
+        updateBoard(data,r,row,col,"user")
     return
 
 
