@@ -110,7 +110,6 @@ def checkShip(grid, ship):
                 return False 
     return True 
    
-    return
 
 
 '''
