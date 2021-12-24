@@ -37,6 +37,7 @@ def makeModel(data):
     #data["cp"]=createShip()
     data["tempship"]=[]
     data["userships"]=0
+    data["winner"]=None
     return data 
 
 
@@ -47,8 +48,9 @@ Returns: None
 '''
 def makeView(data, userCanvas, compCanvas):
     drawGrid(data,userCanvas,data["user"],True)
-    drawGrid(data, compCanvas,data["cp"],False)
+    drawGrid(data, compCanvas,data["cp"],True)
     drawShip(data,userCanvas,data["tempship"])
+    drawGameOver(data,userCanvas)
     return
 
     
@@ -71,12 +73,15 @@ Parameters: dict mapping strs to values ; mouse event object ; 2D list of ints
 Returns: None
 '''
 def mousePressed(data, event, board):
-     row,col=getClickedCell(data, event)
+    row,col=getClickedCell(data, event)
+    if data["winner"]==None:
      if board=="user":
-        clickUserBoard(data, row, col)
+        clickUserBoard(data,row,col)
     
      if board=="comp":
-         runGameTurn(data, row, col)
+        runGameTurn(data,row,col)
+    
+    pass 
 
      
 
@@ -285,7 +290,9 @@ def updateBoard(data, board, row, col, player):
     if board[row][col]==SHIP_UNCLICKED:
         board [row][col]=SHIP_CLICKED
     elif board[row][col]==EMPTY_UNCLICKED:
-        board[row][col]=EMPTY_CLICKED    
+        board[row][col]=EMPTY_CLICKED 
+    if isGameOver(board)==True:
+        data["winner"]=player    
     return
 
 
@@ -329,7 +336,11 @@ Parameters: 2D list of ints
 Returns: bool
 '''
 def isGameOver(board):
-    return
+    for i in range(len(board)):
+        if SHIP_UNCLICKED in board[i]:
+            return False
+
+    return True 
 
 
 '''
@@ -338,7 +349,16 @@ Parameters: dict mapping strs to values ; Tkinter canvas
 Returns: None
 '''
 def drawGameOver(data, canvas):
-    return
+     if data["winner"]=="user":
+        canvas.create_text(200, 200, text="Congratulations", font=('Arial',30,'bold italic'), anchor="center")
+        
+     elif data["winner"]=="comp":
+        canvas.create_text(200, 200, text="User Lost", font=('Arial',30,'bold italic'),anchor="center")
+        
+     
+     return 
+
+
 
 
 ### SIMULATION FRAMEWORK ###
