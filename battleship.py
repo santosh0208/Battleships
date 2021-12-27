@@ -117,7 +117,6 @@ def addShips(grid, numShips):
                 grid[a[0]][a[1]]=2
             s+=1
     return grid 
-
     return
 
 
